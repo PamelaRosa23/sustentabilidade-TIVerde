@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz sobre Sustentabilidade e TI-Verde</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #e8f5e9; /* Cor de fundo verde claro */
+        }
+        .quiz-container {
+            background-color: #ffffff; /* Fundo branco para o container */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid #4CAF50; /* Borda verde */
+        }
+        h1 {
+            color: #2c6b2f; /* Título verde escuro */
+        }
+        .question p {
+            font-size: 1.2em;
+            color: #2c6b2f; /* Cor verde escuro para as perguntas */
+        }
+        .options input {
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50; /* Botão verde */
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049; /* Cor do botão ao passar o mouse */
+        }
+        .result, .summary, .ranking-container, .ranking-list {
+            margin-top: 20px;
+        }
+        .ranking-list {
+            list-style: none;
+            padding: 0;
+        }
+        .ranking-list li {
+            padding: 5px 0;
+            border-bottom: 1px solid #ddd; /* Linha divisória entre itens */
+        }
+        .summary p {
+            margin: 0;
+            padding: 10px;
+            background-color: #f1f8e9; /* Fundo verde claro para o resumo */
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>Quiz sobre Sustentabilidade e TI-Verde</h1>
+        <form id="quizForm">
+            <div class="question">
+                <p>1. O que é TI-Verde?</p>
+                <div class="options">
+                    <input type="radio" name="q1" value="1"> Tecnologia Verde<br>
+                    <input type="radio" name="q1" value="2"> Iniciativa Sustentável<br>
+                    <input type="radio" name="q1" value="3"> Uso Eficiente de TI<br>
+                    <input type="radio" name="q1" value="4"> Todas as anteriores<br>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>2. Quais são os 5Rs da sustentabilidade?</p>
+                <div class="options">
+                    <input type="radio" name="q2" value="1"> Reduzir, Reutilizar, Reciclar, Reintegrar, Respeitar<br>
+                    <input type="radio" name="q2" value="2"> Reusar, Reduzir, Reaproveitar, Renovar, Reciclar<br>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>3. Qual é o principal objetivo do TI-Verde?</p>
+                <div class="options">
+                    <input type="radio" name="q3" value="1"> Reduzir o consumo de energia<br>
+                    <input type="radio" name="q3" value="2"> Aumentar o lucro das empresas<br>
+                    <input type="radio" name="q3" value="3"> Expandir a infraestrutura de TI<br>
+                    <input type="radio" name="q3" value="4"> Melhorar a performance dos sistemas<br>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>4. Qual das seguintes práticas não é considerada sustentável?</p>
+                <div class="options">
+                    <input type="radio" name="q4" value="1"> Reciclagem de papel<br>
+                    <input type="radio" name="q4" value="2"> Uso de energia renovável<br>
+                    <input type="radio" name="q4" value="3"> Descarte inadequado de eletrônicos<br>
+                    <input type="radio" name="q4" value="4"> Uso de materiais reciclados<br>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" onclick="submitQuiz()">Enviar Quiz</button>
+            </div>
+        </form>
+
+        <div class="result"></div>
+
+        <div class="ranking-container" style="display:none;">
+            <label for="name">Digite seu nome:</label>
+            <input type="text" id="name" name="name">
+            <button type="button" onclick="submitRanking()">Enviar Ranking</button>
+        </div>
+
+        <div class="ranking-list" style="display:none;">
+            <h2>Ranking</h2>
+            <ul id="ranking"></ul>
+        </div>
+
+        <div class="summary" style="display:none;">
+            <h2>Resumo</h2>
+            <p><strong>TI-Verde:</strong> TI-Verde é uma abordagem que visa reduzir o impacto ambiental das atividades relacionadas à tecnologia da informação (TI). Ela se concentra em práticas sustentáveis que ajudam a minimizar o consumo de energia, o desperdício eletrônico (e-waste) e a emissão de gases poluentes. O conceito de TI Verde envolve o design, o uso e o descarte responsável de equipamentos e infraestruturas de TI, promovendo a eficiência energética, o uso prolongado de dispositivos e a reciclagem.</p>
+            <p><strong>Os 5Rs:</strong> Os 5Rs são um conjunto de práticas sustentáveis que promovem a redução do impacto ambiental e a conscientização sobre o consumo consciente. Eles orientam as pessoas a repensarem a forma como consomem, produzem e descartam produtos, com o objetivo de reduzir a geração de resíduos e preservar os recursos naturais. Os 5Rs da sustentabilidade são: Reduzir, Reutilizar, Reciclar, Reintegrar e Respeitar.</p>
+            <p><strong>Sustentabilidade:</strong> Sustentabilidade é um conceito que envolve o equilíbrio entre o desenvolvimento econômico, a preservação ambiental e o bem-estar social. A ideia central é garantir que as necessidades do presente sejam atendidas sem comprometer a capacidade das futuras gerações de suprirem suas próprias necessidades. Esse conceito é frequentemente associado à responsabilidade ambiental, mas abrange também aspectos sociais e econômicos.</p>
+            <p><strong>Impacto das Práticas Sustentáveis:</strong> A adoção de práticas sustentáveis em TI e em nossas vidas diárias pode ter um impacto significativo na preservação dos recursos naturais e na redução da pegada de carbono. Práticas como a reciclagem de equipamentos eletrônicos e a utilização eficiente da energia são essenciais para criar um futuro mais verde e sustentável.</p>
+        </div>
+    </div>
+
+    <script>
+        const correctAnswers = {
+            q1: '4',
+            q2: '1',
+            q3: '1',
+            q4: '3'
+        };
+
+        let rankings = [];
+
+        function submitQuiz() {
+            const form = document.getElementById('quizForm');
+            let score = 0;
+            const formData = new FormData(form);
+
+            formData.forEach((value, key) => {
+                if (value === correctAnswers[key]) {
+                    score++;
+                }
+            });
+
+            const percentage = (score / Object.keys(correctAnswers).length) * 100;
+            document.querySelector('.result').innerHTML = `Você acertou ${score} de 4 perguntas. (${percentage.toFixed(2)}%)`;
+            document.querySelector('.ranking-container').style.display = 'block';
+        }
+
+        function submitRanking() {
+            const name = document.getElementById('name').value;
+            if (name) {
+                const form = document.getElementById('quizForm');
+                let score = 0;
+                const formData = new FormData(form);
+
+                formData.forEach((value, key) => {
+                    if (value === correctAnswers[key]) {
+                        score++;
+                    }
+                });
+
+                const percentage = (score / Object.keys(correctAnswers).length) * 100;
+                rankings.push({ name, percentage });
+                updateRankingList();
+                document.querySelector('.summary').style.display = 'block';
+            } else {
+                alert('Por favor, insira seu nome.');
+            }
+        }
+
+        function updateRankingList() {
+            const rankingList = document.getElementById('ranking');
+            rankingList.innerHTML = '';
+            rankings.forEach(entry => {
+                const li = document.createElement('li');
+                li.textContent = `${entry.name} - ${entry.percentage.toFixed(2)}%`;
+                rankingList.appendChild(li);
+            });
+            document.querySelector('.ranking-list').style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
