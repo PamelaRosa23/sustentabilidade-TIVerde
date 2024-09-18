@@ -177,7 +177,13 @@
                 });
 
                 const percentage = (score / Object.keys(correctAnswers).length) * 100;
-                rankings.push({ name, percentage });
+                // Verifica se o nome já está no ranking e atualiza a pontuação
+                const existingEntryIndex = rankings.findIndex(entry => entry.name === name);
+                if (existingEntryIndex !== -1) {
+                    rankings[existingEntryIndex].percentage = percentage;
+                } else {
+                    rankings.push({ name, percentage });
+                }
                 localStorage.setItem('ranking', JSON.stringify(rankings)); // Salva o ranking no localStorage
                 updateRankingList();
                 document.querySelector('.summary').style.display = 'block';
