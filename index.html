@@ -136,6 +136,15 @@
             q4: '3'
         };
 
+        // Carrega o ranking salvo no localStorage
+        function loadRanking() {
+            const savedRanking = localStorage.getItem('ranking');
+            if (savedRanking) {
+                rankings = JSON.parse(savedRanking);
+                updateRankingList();
+            }
+        }
+
         let rankings = [];
 
         function submitQuiz() {
@@ -169,6 +178,7 @@
 
                 const percentage = (score / Object.keys(correctAnswers).length) * 100;
                 rankings.push({ name, percentage });
+                localStorage.setItem('ranking', JSON.stringify(rankings)); // Salva o ranking no localStorage
                 updateRankingList();
                 document.querySelector('.summary').style.display = 'block';
             } else {
@@ -179,6 +189,7 @@
         function updateRankingList() {
             const rankingList = document.getElementById('ranking');
             rankingList.innerHTML = '';
+            rankings.sort((a, b) => b.percentage - a.percentage); // Ordena o ranking por percentual
             rankings.forEach(entry => {
                 const li = document.createElement('li');
                 li.textContent = `${entry.name} - ${entry.percentage.toFixed(2)}%`;
@@ -186,6 +197,9 @@
             });
             document.querySelector('.ranking-list').style.display = 'block';
         }
+
+        // Carrega o ranking quando a página é carregada
+        window.onload = loadRanking;
     </script>
 
 </body>
