@@ -1,0 +1,78 @@
+<script>
+    // Carrega o ranking salvo do banco de dados
+    async function loadRanking() {
+        try {
+            const response = await fetch('http://localhost:3000/ranking');
+            const data = await response.json();
+            rankings = data;
+            updateRankingList();
+        } catch (error) {
+            console.error('Erro ao carregar o ranking:', error);
+        }
+    }
+
+    let rankings = [];
+
+    async function submitQuiz() {
+        const form = document.getElementById('quizForm');
+        let score = 0;
+        const formData = new FormData(form);
+
+        formData.forEach((value, key) => {
+            if (value === correctAnswers[key]) {
+                score++;
+            }
+        });
+
+        const percentage = (score / Object.keys(correctAnswers).length) * 100;
+        document.querySelector('.result').innerHTML = `Você acertou ${score} de 4 perguntas. (${percentage.toFixed(2)}%)`;
+        document.querySelector('.ranking-container').style.display = 'block';
+    }
+
+    async function submitRanking() {
+        const name = document.getElementById('name').value;
+        if (name) {
+            const form = document.getElementById('quizForm');
+            let score = 0;
+            const formData = new FormData(form);
+
+            formData.forEach((value, key) => {
+                if (value === correctAnswers[key]) {
+                    score++;
+                }
+            });
+
+            const percentage = (score / Object.keys(correctAnswers).length) * 100;
+
+            try {
+                await fetch('http://localhost:3000/ranking', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, percentage })
+                });
+
+                // Atualiza a lista de rankings após enviar
+                await loadRanking();
+                document.querySelector('.summary').style.display = 'block';
+            } catch (error) {
+                console.error('Erro ao enviar o ranking:', error);
+            }
+        } else {
+            alert('Por favor, insira seu nome.');
+        }
+    }
+
+    function updateRankingList() {
+        const rankingList = document.getElementById('ranking');
+        rankingList.innerHTML = '';
+        rankings.forEach(entry => {
+            const li = document.createElement('li');
+            li.textContent = `${entry.name} - ${entry.percentage.toFixed(2)}%`;
+            rankingList.appendChild(li);
+        });
+        document.querySelector('.ranking-list').style.display = 'block';
+    }
+
+    // Carrega o ranking quando a página é carregada
+    window.onload = loadRanking;
+</script>
