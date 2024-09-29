@@ -9,52 +9,68 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #e8f5e9; /* Cor de fundo verde claro */
+            background-image: url('https://www.officetotal.com.br/wp-content/uploads/2022/03/ti-verde-sustentabilidade-1024x576.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #000000;
         }
         .quiz-container {
-            background-color: #ffffff; /* Fundo branco para o container */
+            background-color: rgba(255, 255, 255, 0.8);
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border: 2px solid #4CAF50; /* Borda verde */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
         h1 {
-            color: #2c6b2f; /* Título verde escuro */
+            color: #2c6b2f;
         }
         .question p {
             font-size: 1.2em;
-            color: #2c6b2f; /* Cor verde escuro para as perguntas */
+            color: #2c6b2f;
         }
         .options input {
             margin-right: 10px;
         }
         button {
             padding: 10px 15px;
-            background-color: #4CAF50; /* Botão verde */
+            background-color: #4CAF50;
             color: white;
             border: none;
             cursor: pointer;
             border-radius: 5px;
         }
         button:hover {
-            background-color: #45a049; /* Cor do botão ao passar o mouse */
+            background-color: #45a049;
         }
-        .result, .summary, .ranking-container, .ranking-list {
+        .result, .summary, .ranking-container, .ranking-list, .feedback-list {
             margin-top: 20px;
         }
-        .ranking-list {
+        .ranking-list, .feedback-list {
             list-style: none;
             padding: 0;
         }
-        .ranking-list li {
+        .ranking-list li, .feedback-list li {
             padding: 5px 0;
-            border-bottom: 1px solid #ddd; /* Linha divisória entre itens */
+            border-bottom: 1px solid #ddd;
         }
         .summary p {
             margin: 0;
             padding: 10px;
-            background-color: #f1f8e9; /* Fundo verde claro para o resumo */
+            background-color: #f1f8e9;
             border-radius: 5px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .feedback-container {
+            margin-top: 20px;
+            display: none; /* Inicialmente escondido */
+        }
+        .fixed-feedback {
+            display: block; /* Sempre visível */
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -62,6 +78,7 @@
 
     <div class="quiz-container">
         <h1>Quiz sobre Sustentabilidade e TI-Verde</h1>
+
         <form id="quizForm">
             <div class="question">
                 <p>1. O que é TI-Verde?</p>
@@ -112,6 +129,13 @@
             <label for="name">Digite seu nome:</label>
             <input type="text" id="name" name="name">
             <button type="button" onclick="submitRanking()">Enviar Ranking</button>
+            
+            <!-- Exibição do Nome e Resultado -->
+            <div class="user-result" style="display:none;">
+                <h3>Seu Nome e Resultado</h3>
+                <p id="userName"></p>
+                <p id="userScore"></p>
+            </div>
         </div>
 
         <div class="ranking-list" style="display:none;">
@@ -121,10 +145,23 @@
 
         <div class="summary" style="display:none;">
             <h2>Resumo</h2>
-            <p><strong>TI-Verde:</strong> TI-Verde é uma abordagem que visa reduzir o impacto ambiental das atividades relacionadas à tecnologia da informação (TI). Ela se concentra em práticas sustentáveis que ajudam a minimizar o consumo de energia, o desperdício eletrônico (e-waste) e a emissão de gases poluentes. O conceito de TI Verde envolve o design, o uso e o descarte responsável de equipamentos e infraestruturas de TI, promovendo a eficiência energética, o uso prolongado de dispositivos e a reciclagem.</p>
-            <p><strong>Os 5Rs:</strong> Os 5Rs são um conjunto de práticas sustentáveis que promovem a redução do impacto ambiental e a conscientização sobre o consumo consciente. Eles orientam as pessoas a repensarem a forma como consomem, produzem e descartam produtos, com o objetivo de reduzir a geração de resíduos e preservar os recursos naturais. Os 5Rs da sustentabilidade são: Reduzir, Reutilizar, Reciclar, Reintegrar e Respeitar.</p>
-            <p><strong>Sustentabilidade:</strong> Sustentabilidade é um conceito que envolve o equilíbrio entre o desenvolvimento econômico, a preservação ambiental e o bem-estar social. A ideia central é garantir que as necessidades do presente sejam atendidas sem comprometer a capacidade das futuras gerações de suprirem suas próprias necessidades. Esse conceito é frequentemente associado à responsabilidade ambiental, mas abrange também aspectos sociais e econômicos.</p>
+            <p><strong>TI-Verde:</strong> TI-Verde é uma abordagem que visa reduzir o impacto ambiental das atividades relacionadas à tecnologia da informação (TI). Ela se concentra em práticas sustentáveis que ajudam a minimizar o consumo de energia, o desperdício eletrônico (e-waste) e a emissão de gases poluentes. O conceito de TI Verde envolve o design, o uso e o descarte responsável de equipamentos e infraestruturas de TI, promovendo a eficiência energética, o uso prolongado de dispositivos e a reciclagem. <a href="https://www.youtube.com/watch?v=YIcV2lJ_XNU">Vídeo sobre TI-Verde</a></p>
+            <p><strong>Os 5Rs:</strong> Os 5Rs são um conjunto de práticas sustentáveis que promovem a redução do impacto ambiental e a conscientização sobre o consumo consciente. Eles orientam as pessoas a repensarem a forma como consomem, produzem e descartam produtos, com o objetivo de reduzir a geração de resíduos e preservar os recursos naturais. Os 5Rs da sustentabilidade são: Reduzir, Reutilizar, Reciclar, Reintegrar e Respeitar. <a href="https://www.youtube.com/watch?v=LKJM3DCmraM">Vídeo sobre os 5Rs</a></p>
+            <p><strong>Sustentabilidade:</strong> Sustentabilidade é um conceito que envolve o equilíbrio entre o desenvolvimento econômico, a preservação ambiental e o bem-estar social. A ideia central é garantir que as necessidades do presente sejam atendidas sem comprometer a capacidade das futuras gerações de suprirem suas próprias necessidades. Esse conceito é frequentemente associado à responsabilidade ambiental, mas abrange também aspectos sociais e econômicos. <a href="https://www.youtube.com/watch?v=UjU0RlTzP4Y">Vídeo sobre Sustentabilidade</a></p>
             <p><strong>Impacto das Práticas Sustentáveis:</strong> A adoção de práticas sustentáveis em TI e em nossas vidas diárias pode ter um impacto significativo na preservação dos recursos naturais e na redução da pegada de carbono. Práticas como a reciclagem de equipamentos eletrônicos e a utilização eficiente da energia são essenciais para criar um futuro mais verde e sustentável.</p>
+        </div>
+
+        <!-- Seção de Feedback -->
+        <div class="feedback-container fixed-feedback">
+            <h2>Feedback</h2>
+            <label for="feedback">Deixe seu feedback:</label><br>
+            <textarea id="feedback" rows="4" cols="50" placeholder="Escreva seu feedback aqui..."></textarea><br>
+            <button type="button" onclick="submitFeedback()">Enviar Feedback</button>
+        </div>
+
+        <div class="feedback-list" style="display:none;">
+            <h2>Feedbacks</h2>
+            <ul id="feedbacks"></ul>
         </div>
     </div>
 
@@ -136,77 +173,96 @@
             q4: '3'
         };
 
-        // Carrega o ranking salvo no localStorage
-        function loadRanking() {
-            const savedRanking = localStorage.getItem('ranking');
-            if (savedRanking) {
-                rankings = JSON.parse(savedRanking);
-                updateRankingList();
-            }
-        }
+        let score = 0;
+        let rankings = JSON.parse(localStorage.getItem('ranking')) || [];
+        let feedbacks = JSON.parse(localStorage.getItem('feedbacks')) || []; // Armazena feedbacks
 
-        let rankings = [];
+        function loadRanking() {
+            updateRankingList();
+            updateFeedbackList(); // Atualiza a lista de feedbacks
+        }
 
         function submitQuiz() {
             const form = document.getElementById('quizForm');
-            let score = 0;
-            const formData = new FormData(form);
+            score = 0;
 
-            formData.forEach((value, key) => {
-                if (value === correctAnswers[key]) {
+            for (const [key, value] of Object.entries(correctAnswers)) {
+                const answer = form.elements[key].value;
+                if (answer === value) {
                     score++;
                 }
-            });
+            }
 
-            const percentage = (score / Object.keys(correctAnswers).length) * 100;
-            document.querySelector('.result').innerHTML = `Você acertou ${score} de 4 perguntas. (${percentage.toFixed(2)}%)`;
+            // Mostra o resultado e oculta o formulário
+            const resultDiv = document.querySelector('.result');
+            resultDiv.innerHTML = `<h3>Seu Resultado: ${score} de ${Object.keys(correctAnswers).length}</h3>`;
             document.querySelector('.ranking-container').style.display = 'block';
+            document.querySelector('.ranking-list').style.display = 'none';
+            document.querySelector('.summary').style.display = 'none';
+            document.querySelector('.feedback-container').style.display = 'none'; // Esconder feedback inicialmente
         }
 
         function submitRanking() {
-            const name = document.getElementById('name').value;
+            const nameInput = document.getElementById('name');
+            const name = nameInput.value;
+
             if (name) {
-                const form = document.getElementById('quizForm');
-                let score = 0;
-                const formData = new FormData(form);
+                rankings.push({ name, score });
+                localStorage.setItem('ranking', JSON.stringify(rankings));
+                document.getElementById('userName').innerText = `Nome: ${name}`;
+                document.getElementById('userScore').innerText = `Pontuação: ${score} de ${Object.keys(correctAnswers).length}`;
+                document.querySelector('.user-result').style.display = 'block';
 
-                formData.forEach((value, key) => {
-                    if (value === correctAnswers[key]) {
-                        score++;
-                    }
-                });
-
-                const percentage = (score / Object.keys(correctAnswers).length) * 100;
-                // Verifica se o nome já está no ranking e atualiza a pontuação
-                const existingEntryIndex = rankings.findIndex(entry => entry.name === name);
-                if (existingEntryIndex !== -1) {
-                    rankings[existingEntryIndex].percentage = percentage;
-                } else {
-                    rankings.push({ name, percentage });
-                }
-                localStorage.setItem('ranking', JSON.stringify(rankings)); // Salva o ranking no localStorage
-                updateRankingList();
+                // Mostra o ranking e o resumo
+                document.querySelector('.ranking-list').style.display = 'block';
                 document.querySelector('.summary').style.display = 'block';
+                document.querySelector('.feedback-container').style.display = 'block'; // Mostrar feedback após ranking
+                updateRankingList();
             } else {
-                alert('Por favor, insira seu nome.');
+                alert('Por favor, digite seu nome.');
             }
         }
 
         function updateRankingList() {
             const rankingList = document.getElementById('ranking');
             rankingList.innerHTML = '';
-            rankings.sort((a, b) => b.percentage - a.percentage); // Ordena o ranking por percentual
-            rankings.forEach(entry => {
+
+            rankings.sort((a, b) => b.score - a.score); // Ordena por pontuação
+
+            rankings.forEach(item => {
                 const li = document.createElement('li');
-                li.textContent = `${entry.name} - ${entry.percentage.toFixed(2)}%`;
+                li.textContent = `${item.name}: ${item.score}`;
                 rankingList.appendChild(li);
             });
-            document.querySelector('.ranking-list').style.display = 'block';
         }
 
-        // Carrega o ranking quando a página é carregada
-        window.onload = loadRanking;
-    </script>
+        function submitFeedback() {
+            const feedbackInput = document.getElementById('feedback').value;
+            if (feedbackInput) {
+                feedbacks.push(feedbackInput); // Adiciona feedback ao array
+                localStorage.setItem('feedbacks', JSON.stringify(feedbacks)); // Salva feedback no localStorage
+                alert('Obrigado pelo seu feedback!');
+                document.getElementById('feedback').value = ''; // Limpa o campo de feedback
+                updateFeedbackList(); // Atualiza a lista de feedbacks
+            } else {
+                alert('Por favor, escreva seu feedback.');
+            }
+        }
 
+        function updateFeedbackList() {
+            const feedbackList = document.getElementById('feedbacks');
+            feedbackList.innerHTML = '';
+
+            feedbacks.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                feedbackList.appendChild(li);
+            });
+
+            document.querySelector('.feedback-list').style.display = feedbacks.length ? 'block' : 'none'; // Mostra ou esconde a lista de feedbacks
+        }
+
+        loadRanking();
+    </script>
 </body>
 </html>
