@@ -41,14 +41,14 @@
         button:hover {
             background-color: #45a049;
         }
-        .result, .summary, .ranking-container, .ranking-list, .feedback-list {
+        .result, .summary, .ranking-container, .ranking-list {
             margin-top: 20px;
         }
-        .ranking-list, .feedback-list {
+        .ranking-list {
             list-style: none;
             padding: 0;
         }
-        .ranking-list li, .feedback-list li {
+        .ranking-list li {
             padding: 5px 0;
             border-bottom: 1px solid #ddd;
         }
@@ -66,7 +66,6 @@
         }
         .feedback-container {
             margin-top: 20px;
-            display: none; /* Inicialmente escondido */
         }
         .fixed-feedback {
             display: block; /* Sempre visível */
@@ -118,151 +117,204 @@
                 </div>
             </div>
 
-            <div>
-                <button type="button" onclick="submitQuiz()">Enviar Quiz</button>
+            <!-- Novas perguntas -->
+            <div class="question">
+                <p>5. O que é o e-waste?</p>
+                <div class="options">
+                    <input type="radio" name="q5" value="1"> Resíduos eletrônicos<br>
+                    <input type="radio" name="q5" value="2"> Poluição do ar<br>
+                    <input type="radio" name="q5" value="3"> Desperdício de papel<br>
+                    <input type="radio" name="q5" value="4"> Nenhuma das anteriores<br>
+                </div>
             </div>
+
+            <div class="question">
+                <p>6. Qual é uma vantagem do uso de energia solar?</p>
+                <div class="options">
+                    <input type="radio" name="q6" value="1"> É renovável e sustentável<br>
+                    <input type="radio" name="q6" value="2"> É mais barata que o carvão<br>
+                    <input type="radio" name="q6" value="3"> É a única fonte de energia<br>
+                    <input type="radio" name="q6" value="4"> Não causa poluição<br>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>7. O que é compostagem?</p>
+                <div class="options">
+                    <input type="radio" name="q7" value="1"> Processo de reciclagem de papel<br>
+                    <input type="radio" name="q7" value="2"> Processo de decomposição de resíduos orgânicos<br>
+                    <input type="radio" name="q7" value="3"> Método de purificação de água<br>
+                    <input type="radio" name="q7" value="4"> Nenhuma das anteriores<br>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>8. O que é a pegada de carbono?</p>
+                <div class="options">
+                    <input type="radio" name="q8" value="1"> Quantidade de carbono que uma pessoa ou empresa emite<br>
+                    <input type="radio" name="q8" value="2"> Total de árvores plantadas<br>
+                    <input type="radio" name="q8" value="3"> Quantidade de água utilizada<br>
+                    <input type="radio" name="q8" value="4"> Nenhuma das anteriores<br>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>9. Qual é uma maneira de reduzir o consumo de energia em casa?</p>
+                <div class="options">
+                    <input type="radio" name="q9" value="1"> Usar lâmpadas incandescentes<br>
+                    <input type="radio" name="q9" value="2"> Desligar aparelhos eletrônicos quando não estão em uso<br>
+                    <input type="radio" name="q9" value="3"> Manter as janelas fechadas no verão<br>
+                    <input type="radio" name="q9" value="4"> Deixar as luzes acesas durante a noite<br>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>10. O que é agricultura sustentável?</p>
+                <div class="options">
+                    <input type="radio" name="q10" value="1"> Uso excessivo de pesticidas<br>
+                    <input type="radio" name="q10" value="2"> Práticas que preservam o meio ambiente e a biodiversidade<br>
+                    <input type="radio" name="q10" value="3"> Cultivo de apenas um tipo de planta<br>
+                    <input type="radio" name="q10" value="4"> Nenhuma das anteriores<br>
+                </div>
+            </div>
+
+            <div class="question">
+                <p>11. Qual é o impacto do plástico no meio ambiente?</p>
+                <div class="options">
+                    <input type="radio" name="q11" value="1"> Não tem impacto<br>
+                    <input type="radio" name="q11" value="2"> Degrada rapidamente<br>
+                    <input type="radio" name="q11" value="3"> Pode levar centenas de anos para se decompor<br>
+                    <input type="radio" name="q11" value="4"> É biodegradável<br>
+                </div>
+            </div>
+
+            <button type="button" id="submitQuiz">Enviar Quiz</button>
         </form>
 
-        <div class="result"></div>
-
-        <div class="ranking-container" style="display:none;">
-            <label for="name">Digite seu nome:</label>
-            <input type="text" id="name" name="name">
-            <button type="button" onclick="submitRanking()">Enviar Ranking</button>
-            
-            <!-- Exibição do Nome e Resultado -->
-            <div class="user-result" style="display:none;">
-                <h3>Seu Nome e Resultado</h3>
-                <p id="userName"></p>
-                <p id="userScore"></p>
-            </div>
-        </div>
-
-        <div class="ranking-list" style="display:none;">
+        <div class="result" style="display: none;"></div>
+        <div class="summary" style="display: none;"></div>
+        <div class="ranking-container" style="display: none;">
             <h2>Ranking</h2>
-            <ul id="ranking"></ul>
+            <ul class="ranking-list"></ul>
         </div>
 
-        <div class="summary" style="display:none;">
-            <h2>Resumo</h2>
-            <p><strong>TI-Verde:</strong> TI-Verde é uma abordagem que visa reduzir o impacto ambiental das atividades relacionadas à tecnologia da informação (TI). Ela se concentra em práticas sustentáveis que ajudam a minimizar o consumo de energia, o desperdício eletrônico (e-waste) e a emissão de gases poluentes. O conceito de TI Verde envolve o design, o uso e o descarte responsável de equipamentos e infraestruturas de TI, promovendo a eficiência energética, o uso prolongado de dispositivos e a reciclagem. <a href="https://www.youtube.com/watch?v=YIcV2lJ_XNU">Vídeo sobre TI-Verde</a></p>
-            <p><strong>Os 5Rs:</strong> Os 5Rs são um conjunto de práticas sustentáveis que promovem a redução do impacto ambiental e a conscientização sobre o consumo consciente. Eles orientam as pessoas a repensarem a forma como consomem, produzem e descartam produtos, com o objetivo de reduzir a geração de resíduos e preservar os recursos naturais. Os 5Rs da sustentabilidade são: Reduzir, Reutilizar, Reciclar, Reintegrar e Respeitar. <a href="https://www.youtube.com/watch?v=LKJM3DCmraM">Vídeo sobre os 5Rs</a></p>
-            <p><strong>Sustentabilidade:</strong> Sustentabilidade é um conceito que envolve o equilíbrio entre o desenvolvimento econômico, a preservação ambiental e o bem-estar social. A ideia central é garantir que as necessidades do presente sejam atendidas sem comprometer a capacidade das futuras gerações de suprirem suas próprias necessidades. Esse conceito é frequentemente associado à responsabilidade ambiental, mas abrange também aspectos sociais e econômicos. <a href="https://www.youtube.com/watch?v=UjU0RlTzP4Y">Vídeo sobre Sustentabilidade</a></p>
-            <p><strong>Impacto das Práticas Sustentáveis:</strong> A adoção de práticas sustentáveis em TI e em nossas vidas diárias pode ter um impacto significativo na preservação dos recursos naturais e na redução da pegada de carbono. Práticas como a reciclagem de equipamentos eletrônicos e a utilização eficiente da energia são essenciais para criar um futuro mais verde e sustentável.</p>
-        </div>
-
-        <!-- Seção de Feedback -->
-        <div class="feedback-container fixed-feedback">
+        <div class="feedback-container" style="display: none;">
             <h2>Feedback</h2>
-            <label for="feedback">Deixe seu feedback:</label><br>
-            <textarea id="feedback" rows="4" cols="50" placeholder="Escreva seu feedback aqui..."></textarea><br>
-            <button type="button" onclick="submitFeedback()">Enviar Feedback</button>
-        </div>
-
-        <div class="feedback-list" style="display:none;">
-            <h2>Feedbacks</h2>
-            <ul id="feedbacks"></ul>
+            <textarea id="feedback" rows="4" cols="50" placeholder="Deixe seu feedback aqui..."></textarea>
+            <button id="submitFeedback">Enviar Feedback</button>
         </div>
     </div>
 
     <script>
-        const correctAnswers = {
-            q1: '4',
-            q2: '1',
-            q3: '1',
-            q4: '3'
+        const quizForm = document.getElementById('quizForm');
+        const resultDiv = document.querySelector('.result');
+        const summaryDiv = document.querySelector('.summary');
+        const rankingContainer = document.querySelector('.ranking-container');
+        const rankingList = document.querySelector('.ranking-list');
+        const feedbackContainer = document.querySelector('.feedback-container');
+        const submitFeedbackButton = document.getElementById('submitFeedback');
+        let ranking = JSON.parse(localStorage.getItem('ranking')) || [];
+
+        const answers = {
+            q1: 4,
+            q2: 1,
+            q3: 1,
+            q4: 3,
+            q5: 1,
+            q6: 1,
+            q7: 2,
+            q8: 1,
+            q9: 2,
+            q10: 2,
+            q11: 3,
         };
 
-        let score = 0;
-        let rankings = JSON.parse(localStorage.getItem('ranking')) || [];
-        let feedbacks = JSON.parse(localStorage.getItem('feedbacks')) || []; // Armazena feedbacks
+        function calculateScore() {
+            let score = 0;
 
-        function loadRanking() {
-            updateRankingList();
-            updateFeedbackList(); // Atualiza a lista de feedbacks
-        }
-
-        function submitQuiz() {
-            const form = document.getElementById('quizForm');
-            score = 0;
-
-            for (const [key, value] of Object.entries(correctAnswers)) {
-                const answer = form.elements[key].value;
-                if (answer === value) {
+            for (const question in answers) {
+                const selectedOption = quizForm.querySelector(`input[name="${question}"]:checked`);
+                if (selectedOption && parseInt(selectedOption.value) === answers[question]) {
                     score++;
                 }
             }
 
-            // Mostra o resultado e oculta o formulário
-            const resultDiv = document.querySelector('.result');
-            resultDiv.innerHTML = `<h3>Seu Resultado: ${score} de ${Object.keys(correctAnswers).length}</h3>`;
-            document.querySelector('.ranking-container').style.display = 'block';
-            document.querySelector('.ranking-list').style.display = 'none';
-            document.querySelector('.summary').style.display = 'none';
-            document.querySelector('.feedback-container').style.display = 'none'; // Esconder feedback inicialmente
+            return score;
         }
 
-        function submitRanking() {
-            const nameInput = document.getElementById('name');
-            const name = nameInput.value;
-
-            if (name) {
-                rankings.push({ name, score });
-                localStorage.setItem('ranking', JSON.stringify(rankings));
-                document.getElementById('userName').innerText = `Nome: ${name}`;
-                document.getElementById('userScore').innerText = `Pontuação: ${score} de ${Object.keys(correctAnswers).length}`;
-                document.querySelector('.user-result').style.display = 'block';
-
-                // Mostra o ranking e o resumo
-                document.querySelector('.ranking-list').style.display = 'block';
-                document.querySelector('.summary').style.display = 'block';
-                document.querySelector('.feedback-container').style.display = 'block'; // Mostrar feedback após ranking
-                updateRankingList();
-            } else {
-                alert('Por favor, digite seu nome.');
-            }
+        function showResult(score) {
+            const totalQuestions = Object.keys(answers).length;
+            const percentage = ((score / totalQuestions) * 100).toFixed(2);
+            resultDiv.innerHTML = `Você acertou ${score} de ${totalQuestions} perguntas (${percentage}%).`;
+            resultDiv.style.display = 'block';
+            return percentage;
         }
 
-        function updateRankingList() {
-            const rankingList = document.getElementById('ranking');
+        function showSummary() {
+            summaryDiv.innerHTML = `
+                <h3>Resumo sobre TI-Verde:</h3>
+                <p>TI-Verde é uma abordagem que visa reduzir o impacto ambiental das atividades relacionadas à tecnologia da informação (TI). Ela se concentra em práticas sustentáveis que ajudam a minimizar o consumo de energia, o desperdício eletrônico (e-waste) e a emissão de gases poluentes. O conceito de TI Verde envolve o design, o uso e o descarte responsável de equipamentos e infraestruturas de TI, promovendo a eficiência energética, o uso prolongado de dispositivos e a reciclagem.</p>
+                <h3>O que é Sustentabilidade:</h3>
+                <p>Sustentabilidade é um conceito que envolve o equilíbrio entre o desenvolvimento econômico, a preservação ambiental e o bem-estar social. A ideia central é garantir que as necessidades do presente sejam atendidas sem comprometer a capacidade das futuras gerações de suprirem suas próprias necessidades. Esse conceito é frequentemente associado à responsabilidade ambiental, mas abrange também aspectos sociais e econômicos.</p>
+                <h3>Os 5Rs da Sustentabilidade:</h3>
+                <p>Os 5Rs são um conjunto de práticas sustentáveis que promovem a redução do impacto ambiental e a conscientização sobre o consumo consciente. Eles orientam as pessoas a repensarem a forma como consomem, produzem e descartam produtos, com o objetivo de reduzir a geração de resíduos e preservar os recursos naturais.</p>
+                <ul>
+                    <li>Reduzir</li>
+                    <li>Reutilizar</li>
+                    <li>Reciclar</li>
+                    <li>Reintegrar</li>
+                    <li>Respeitar</li>
+                </ul>
+                <h3>Links de Vídeos:</h3>
+                <ul>
+                    <li><a href="https://www.youtube.com/watch?v=1Qz46be7n1Y" target="_blank">TI Verde - O que é?</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=b_KW4r1b11I" target="_blank">Sustentabilidade: O que é e como aplicar?</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=v7h38jztc98" target="_blank">Os 5Rs da Sustentabilidade</a></li>
+                </ul>
+            `;
+            summaryDiv.style.display = 'block';
+        }
+
+        function updateRanking(nickname, percentage) {
+            ranking.push({ nickname, percentage });
+            ranking.sort((a, b) => b.percentage - a.percentage);
+            localStorage.setItem('ranking', JSON.stringify(ranking));
+            displayRanking();
+        }
+
+        function displayRanking() {
             rankingList.innerHTML = '';
-
-            rankings.sort((a, b) => b.score - a.score); // Ordena por pontuação
-
-            rankings.forEach(item => {
+            ranking.forEach(item => {
                 const li = document.createElement('li');
-                li.textContent = `${item.name}: ${item.score}`;
+                li.textContent = `${item.nickname} - ${item.percentage}%`;
                 rankingList.appendChild(li);
             });
+            rankingContainer.style.display = 'block';
         }
 
-        function submitFeedback() {
-            const feedbackInput = document.getElementById('feedback').value;
-            if (feedbackInput) {
-                feedbacks.push(feedbackInput); // Adiciona feedback ao array
-                localStorage.setItem('feedbacks', JSON.stringify(feedbacks)); // Salva feedback no localStorage
-                alert('Obrigado pelo seu feedback!');
-                document.getElementById('feedback').value = ''; // Limpa o campo de feedback
-                updateFeedbackList(); // Atualiza a lista de feedbacks
-            } else {
-                alert('Por favor, escreva seu feedback.');
+        document.getElementById('submitQuiz').addEventListener('click', () => {
+            const score = calculateScore();
+            const percentage = showResult(score);
+            showSummary();
+
+            const nickname = prompt("Digite seu apelido:");
+            if (nickname) {
+                updateRanking(nickname, percentage);
             }
-        }
 
-        function updateFeedbackList() {
-            const feedbackList = document.getElementById('feedbacks');
-            feedbackList.innerHTML = '';
+            feedbackContainer.style.display = 'block';
+        });
 
-            feedbacks.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = item;
-                feedbackList.appendChild(li);
-            });
-
-            document.querySelector('.feedback-list').style.display = feedbacks.length ? 'block' : 'none'; // Mostra ou esconde a lista de feedbacks
-        }
-
-        loadRanking();
+        submitFeedbackButton.addEventListener('click', () => {
+            const feedback = document.getElementById('feedback').value;
+            if (feedback) {
+                alert('Feedback enviado! Obrigado.');
+                document.getElementById('feedback').value = ''; // Limpar feedback após o envio
+            } else {
+                alert('Por favor, deixe seu feedback antes de enviar.');
+            }
+        });
     </script>
+
 </body>
 </html>
